@@ -43,6 +43,9 @@ TOKEN: {
 SPECIAL_TOKEN: { <SPACES: ([" ", "\t", "\n", "\r", "\f"]+> }
 
 SPECIAL_TOKEN: {
-    <LINE_COMMENT: "//"(^["\n", "\r"])*("\n" | "\r\n" | "\r")?>
+    <LINE_COMMENT: "//"(~["\n", "\r"])*("\n" | "\r\n" | "\r")?>
 }
 
+MORE: { <"/*"> : IN_BLOCK_COMMENT }
+<IN_BLOCK_COMMENT> MORE: { <~[]> }
+<IN_BLOCK_COMMENT> SPECIAL_TOKEN: { <BLOCK_COMMENT: "*/"> : DEFAULT }
