@@ -39,3 +39,10 @@ TOKEN: {
             | "0"(["0"-"7"])*("U")?("L")?
             >
 }
+
+SPECIAL_TOKEN: { <SPACES: ([" ", "\t", "\n", "\r", "\f"]+> }
+
+SPECIAL_TOKEN: {
+    <LINE_COMMENT: "//"(^["\n", "\r"])*("\n" | "\r\n" | "\r")?>
+}
+
