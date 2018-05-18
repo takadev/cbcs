@@ -19,6 +19,7 @@ n回からm回の繰り返し|("o"){1,3}
 # JavaCCのEBNF記法
 
 種類|記述例
+--|--
 終端記号|<IDENTIFIER>または","
 非終端記号|name()
 連接|<UNSIGNED> <LONG>
