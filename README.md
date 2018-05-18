@@ -13,5 +13,16 @@
 n回からm回の繰り返し|("o"){1,3}
 ちょうどn回の繰り返し|("o"){3}
 省略可能|("0x")?
-選択|"ABC"|"XYZ"
+選択|"ABC"&#x7C;"XYZ"
 
+
+# JavaCCのEBNF記法
+
+種類|記述例
+終端記号|<IDENTIFIER>または","
+非終端記号|name()
+連接|<UNSIGNED> <LONG>
+0回以上の繰り返し|("," expr())*
+1回以上の繰り返し|(stmt())+
+選択|<CHAR> &#x7C;<SHORT>&#x7C;<INT>&#x7C;<LONG>
+省略可能|[<ELSE> stmt()]
