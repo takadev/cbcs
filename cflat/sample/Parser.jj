@@ -67,3 +67,14 @@ MORE: { <"'"> : IN_CHARACTER }
 }
 <CHARACTER_TERM> TOKEN: { <CHARACTER: "'"> : DEFAULT }
 
+
+import_stmts(): {}
+{
+    (import_stmt())*
+}
+
+import_stmt(): {}
+{
+    <IMPORT> name() ("." name())* ";"
+}
+
