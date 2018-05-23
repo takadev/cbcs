@@ -78,3 +78,7 @@ import_stmt(): {}
     <IMPORT> name() ("." name())* ";"
 }
 
+name(): {}
+{
+    <IDENTIFIER>
+}
