@@ -82,3 +82,45 @@ name(): {}
 {
     <IDENTIFIER>
 }
+
+
+top_defs(): {}
+{
+    (LOOKATHEAD(storeage() typeref() <IDENTIFIER> "("))defun()
+    | LOOKATHEAD(3) defvars()
+    | defconst()
+    | defstruct()
+    | typedef()
+    )*
+}
+
+defvars(): {}
+{
+    storage() type() name() ["=" expr()] ("," name() ["=" expr()])* ";"
+}
+
+storage(): {}
+{
+    [<STATIC>]
+}
+
+defun(): {}
+{
+    storage() typeref() name() "(" params() ")" block()
+}
+
+params(): {}
+{
+    LOOKATHEAD(<VOID> ")") <VOID>
+    | fixedparams() ["," "..."]
+}
+
+fixedparams(): {}
+{
+    param() (LOOKATHEAD(2) "," param())*
+}
+
+param(): {*
+{
+    type() name()
+}
