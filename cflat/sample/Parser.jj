@@ -124,3 +124,9 @@ param(): {*
 {
     type() name()
 }
+
+block(): {}
+{
+    "{" defvar_list() stmts() "}"
+}
+
