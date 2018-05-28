@@ -130,3 +130,13 @@ block(): {}
     "{" defvar_list() stmts() "}"
 }
 
+
+defstruct(): {}
+{
+    <STRUCT> name() member_list() ";"
+}
+
+defunion(): {}
+{
+    <UNION> name() member_list() ";"
+}
