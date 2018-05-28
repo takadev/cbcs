@@ -209,3 +209,9 @@ stmt(): {}
     | return_stmt()
     )
 }
+
+
+if_stmt(): {}
+{
+    <IF> "(" expr() ")" stmt() [LOOKAHEAD(1) <ELSE> stmt()]
+}
