@@ -140,3 +140,13 @@ defunion(): {}
 {
     <UNION> name() member_list() ";"
 }
+
+member_list(): {}
+{
+    "{" (slot() ";")* "}"
+}
+
+slot(): {}
+{
+    type() name()
+}
