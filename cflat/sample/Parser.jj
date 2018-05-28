@@ -150,3 +150,62 @@ slot(): {}
 {
     type() name()
 }
+
+typedef(): {}
+{
+    <TYPEDEF> typeref() <IDENTIFIER> ";"
+}
+
+type(): {}
+{
+    typeref()
+}
+
+typeref(): {}
+{
+    typeref_base()
+    (LOOKATHEAD(2) "[" "]"
+    | "[" <INTEGER> "]"
+    | "*"
+    | "(" param_typerefs() ")"
+    )*
+}
+
+typeref_base(): {}
+{
+    <VOID>
+    | <CHAR>
+    | <SHORT>
+    | <INT>
+    | <LONG>
+    | LOOKAHEAD(2) <UNSIGNED> <CHAR>
+    | LOOKAHEAD(2) <UNSIGNED> <SHORT>
+    | LOOKAHEAD(2) <UNSIGNED> <INT>
+    | <UNSIGNED> <LONG>
+    | <STRICT> <IDENTIFIER>
+    | <UNION> <IDENTIFIER>
+    | LOOKAHEAD({|isType(getToken(1).image)}) <IDENTIFIER>
+}
+
+stmts(): {}
+{
+    (stmt())*
+}
+
+stmt(): {}
+{
+    (";"
+    | LOOKAHEAD(2) labeled_stmt()
+    | expr() ";"
+    | block()
+    | if_stmt()
+    | while_stmt()
+    | dowhile_stmt()
+    | for_stmt()
+    | switch_stmt()
+    | break_stmt()
+    | continue_stmt()
+    | goto_stmt()
+    | return_stmt()
+    )
+}
