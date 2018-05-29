@@ -27,3 +27,26 @@ n回からm回の繰り返し|("o"){1,3}
 1回以上の繰り返し|(stmt())+
 選択|<CHAR> &#x7C;<SHORT>&#x7C;<INT>&#x7C;<LONG>
 省略可能|[<ELSE> stmt()]
+
+
+# 意味値を取り出す
+
+```
+String name():
+{
+    Token tok;
+}
+{
+    tok=<IDENTIFIER> { return tok.image; }
+}
+```
+
+```
+意味値の型 非終端記号名(パラメータリスト):
+{
+    ローカル変数宣言
+}
+{
+    規則とアクション
+}
+```
