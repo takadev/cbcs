@@ -215,3 +215,24 @@ if_stmt(): {}
 {
     <IF> "(" expr() ")" stmt() [LOOKAHEAD(1) <ELSE> stmt()]
 }
+
+while_stmt(): {}
+{
+    <WHILE> "(" expr() ")" stmt()
+}
+
+for_stmt(): {}
+{
+    <FOR> "(" [expr()] ";" [expr()] ";" [expr()] ")" stmt()
+}
+
+break_stmt(): {}
+{
+    <BREAK> ";"
+}
+
+return_stmt(): {}
+{
+    LOOKAHEAD(2) <RETURN> ";"
+    | <RETURN> expr() ";"
+}
