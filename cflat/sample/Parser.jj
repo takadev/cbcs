@@ -236,3 +236,87 @@ return_stmt(): {}
     LOOKAHEAD(2) <RETURN> ";"
     | <RETURN> expr() ";"
 }
+
+expr(): {}
+{
+    LOOKAHEAD(term() "=") term() "=" expr()
+    | LOOKAHEAD(term() opassign_op()) term() opassign_op() expr()
+    | expr10()
+}
+
+opassign_op(): {}
+{
+    ("+="
+    |"-="
+    |"*="
+    |"/="
+    |"%="
+    |"&="
+    |"|="
+    |"^="
+    |"<<="
+    |">>="
+    )
+}
+
+expr10(): {}
+{
+    expr9() ["?" expr() ":" expr10()]
+}
+
+expr9(): {}
+{
+    expr8() ("||" expr8())*
+}
+
+expr8(): {}
+{
+    expr7() ("&&" expr7())*
+}
+
+expr7(): {}
+{
+    expr6() (">" expr6()
+            | "<" expr6()
+            | ">=" expr6()
+            | "<=" expr6()
+            | "==" expr6()
+            | "!=" expr6())*
+}
+
+expr6(): {}
+{
+    expr5() ("|" expr5())*
+}
+
+expr5(): {}
+{
+    expr4() ("^" expr4())*
+}
+
+expr4(): {}
+{
+    expr3() ("&" expr3())*
+}
+
+expr3(): {}
+{
+    expr2() (">>" expr2()
+            | "<<" expr2()
+            )*
+}
+
+expr2(): {}
+{
+    expr1() ("+" expr1()
+            | "-" expr1()
+            )*
+}
+
+expr1(): {}
+{
+    term() ("*" term()
+            | "/" term()
+            | "%" term()
+            )*
+}
