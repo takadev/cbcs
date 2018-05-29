@@ -50,3 +50,58 @@ String name():
     規則とアクション
 }
 ```
+
+# Nodeクラス群の継承階層
+
+```
+Node
+    AST
+    ExprNode
+        AbstractAssignNode
+            AssignNode
+            OpAssignNode
+        AddressNode
+        BinaryOpNode
+            LogicalAndNode
+            LogicalOrNode
+        CastNode
+        CondExprNode
+        FuncallNode
+        LHSNode
+            ArefNode
+            DereferenceNode
+            MemberNode
+            PtrMemberNode
+            VariableNode
+        LiteralNode
+            IntegerLiteralNode
+            StringLiteralNode
+        SizeofExprNode
+        SizeofTypeNode
+        UnaryOpNode
+            UnaryArithmeticOpNode
+                PrefixOpNode
+                SuffixOpNode
+    Slot
+    StmtNode
+        BlockNode
+        BreakNode
+        CaseNode
+        ContinueNode
+        DoWhileNode
+        ExprStmtNode
+        ForNode
+        GotoNode
+        IfNode
+        LabelNode
+        ReturnNode
+        SwitchNode
+        WhileNode
+    TypeDefinition
+        CompositeTypeDefinition
+            StructNode
+            UnionNode
+        TypedefNode
+    TypeNode
+```
+

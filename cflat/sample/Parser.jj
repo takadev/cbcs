@@ -367,3 +367,17 @@ primary(): {}
     | <IDENTIFIER>
     | "(" expr() ")"
 }
+
+StructNode defstruct():
+{
+    Token t;
+    STring n;
+    List<Slot> membs;
+}
+{
+    t=<STRUCT> n=name() membs=member_list() ";"
+    {
+        return new StructNode(location(t), new StructTypeRef(n), n, membs);
+    }
+}
+
