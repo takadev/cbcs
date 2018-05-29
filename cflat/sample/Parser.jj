@@ -358,3 +358,12 @@ args(): {}
 {
     [ expr() ("," expr())*]
 }
+
+primary(): {}
+{
+    <INTEGER>
+    | <CHARACTER>
+    | <STRING>
+    | <IDENTIFIER>
+    | "(" expr() ")"
+}
