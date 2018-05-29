@@ -320,3 +320,41 @@ expr1(): {}
             | "%" term()
             )*
 }
+
+term(): {}
+{
+    LOOKAHEAD("(" type()) "(" type() ")" term()
+    | unary()
+}
+
+unary(): {}
+{
+    "++" unary()
+    | "--" unary()
+    | "+" term()
+    | "-" term()
+    | "|" term()
+    | "~" term()
+    | "*" term()
+    | "&" term()
+    | LOOKAHEAD(3) <SIZEOF> "(" type() ")"
+    | <SIZEOF> unary()
+    | postfix()
+}
+
+postfix(): {}
+{
+    primary()
+    ( "++"
+    | "--"
+    | "[" expr() "]"
+    | "." name()
+    | "->" name()
+    | "(" args() ")"
+    )*
+}
+
+args(): {}
+{
+    [ expr() ("," expr())*]
+}
