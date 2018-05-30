@@ -105,3 +105,18 @@ Node
     TypeNode
 ```
 
+# Typeクラスの階層
+
+```
+Type
+    ArrayType
+    FunctionType
+    IntegerType
+    NamedType
+        CompositeType
+            StructType
+            UnionType
+        UserType
+    PointerType
+    VoidType
+```
