@@ -409,3 +409,106 @@ ExprNode primary():
         return n;
     }
 }
+
+ExprNode term():
+{
+    TypeNode t;
+    ExprNode n;
+}
+{
+    LOOKAHEAD("(" type())
+    "(" t=type() ")" n=term()
+    {
+        return new CastNode(t, n);
+    }
+    | n=unary()
+    {
+        return n;
+    }
+}
+
+ExprNode unary():
+{
+    ExprNode n;
+    TypeNode t;
+}
+{
+    "++" n=unary() { return new PrefixOpNode("++", n); }
+    | "--" n=unary() { return new PrefixOpNode("--", n); }
+    | "+" n=term() { return new UnaryOpNode("+", n); }
+    | "-" n=term() { return new UnaryOPNode("=", n); }
+    | "!" n=term() { return new UnaryOpNode("!", n); }
+    | "~" n=term() { return new UnaryOpNode("~", n); }
+    | "*" n=term() { return new DereferenceNode(n); }
+    | "&" n=term() { return new AddressNode(n); }
+    | LOOKAHEAD(3) <SIZEOF> "(" t=type() ")"
+    {
+        return new SizeofTypeNode(t, size_t());
+    }
+    | <SIZEOF> n=unary()
+    {
+        return new SizeofExprNode(n, size_t());
+    }
+    | n=postfix()
+    {
+        return n;
+    }
+}
+
+ExprNode postfix():
+{
+    ExprNode expr, idx;
+    String memb;
+    List<ExprNode> args;
+}
+{
+    expr=primary()
+    ("++" { expr = new SuffixOpNode("++", expr); }
+    | "--" { expr = new SuffixOpNode("--", expr); }
+    | "[" idx=expr() "]" { expr = new ArefNode(expr, idx); }
+    | "." memb=name() { expr = new MemberNode(expr, memb); }
+    | "->" memb=name() { expr = new PtrMemberNode(expr, memb); }
+    | "(" args=args() ")" { expr = new FuncallNode(expr, args); }
+    )*
+    {
+        return expr;
+    }
+}
+
+ExprNode expr1():
+{
+    ExprNode l, r;
+}
+{
+    l=term() ("*" r=term() { l = new BinaryOpNode(l, "*", r); }
+            | "/" r=term() { l = new BinaryOpNode(l, "/", r); }
+            | "%" r=term() { l = new BinaryOpNode(l, "%", r); }
+            ) *
+            {
+                return l;
+            }
+}
+
+ExprNode expr2():
+{
+    l=expr1() { "+" r=expr1() { l = new BinaryOpNode(l, "+", r); }
+            | "-" r=expr1() { l = new BinaryOpNode(l, "-", r); }
+            ) *
+            {
+                return l;
+            }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
