@@ -381,3 +381,31 @@ StructNode defstruct():
     }
 }
 
+
+ExprNode primary():
+{
+    Token t;
+    ExprNode n;
+}
+{
+    t=<INTEGER>
+    {
+        return integerNode(location(t), t.image);
+    }
+    | t=<CHARACTER>
+    {
+        return new IntegerLiteralNode(location(t), IntegerTypeRef.charRef(), charactoerCode(t.image));
+    }
+    | t=<STRING>
+    {
+        return new StringLiteralNode(location(t), new PointerTypeRf(IntegerTypeRef.charReef()), stringValue(t.image));
+    }
+    | t=<IDENTIFIER>
+    {
+        return new VariableNode(location(t), t.image);
+    }
+    | "(" n=expr() ")"
+    {
+        return n;
+    }
+}
