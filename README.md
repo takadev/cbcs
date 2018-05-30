@@ -120,3 +120,17 @@ Type
     PointerType
     VoidType
 ```
+
+# TypeRefクラスの継承階層
+
+```
+TypeRef
+    ArrayTypeRef
+    FunctionTypeRef
+    IntegerTypeRef
+    PointerTypeRef
+    StructTypeRef
+    UnionTypeRef
+    UserTypeRef
+    VoidTypeRef
+```
