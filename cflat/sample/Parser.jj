@@ -499,7 +499,32 @@ ExprNode expr2():
             }
 }
 
+ExprNode expr8():
+{ ExprNode l, r; }
+{
+    l=expr7() ("&&" r=expr7() { l = new LogicalAndNode(l, r); })*
+    {
+        return l;
+    }
+}
 
+ExprNode expr9():
+{ ExprNode l, r; }
+{
+    l=expr8() ("||" r=expr8() { l = new LogicalOrNode(l, r); })*
+    {
+        return l;
+    }
+}
+
+ExprNode expr10():
+{ ExprNode c, t, e; }
+{
+    c=expr9() ["?" t=expr() ":" e=expr10() { return new CondExprNode(c, t, e); } ]
+    {
+        return c:
+    }
+}
 
 
 
